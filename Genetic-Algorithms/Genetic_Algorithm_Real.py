@@ -1,4 +1,5 @@
 import random
+import matplotlib.pyplot as plt
 import obj_fit_functions
 from GA_Initialize import Initialization, Create_First_Generation
 from GA_Evaluate import Evaluate_Generation
@@ -97,10 +98,16 @@ for i in range(algorithm_parameters.get("num_Generations")):
         population, algorithm_parameters, algorithm_parameters.get("Pm")
     )
     best_solution_index = fitness_list.index(max(fitness_list))
-    best_solution.append(best_solution_index)
+    best_solution.append(fitness_list[best_solution_index])
     average_fitness = mean(fitness_list)
     average_solution.append(average_fitness)
 
 print("\nThe final population is: \n", *population, sep="\n")
-print("\nThe average fitness of each generation is: \n", *average_solution, sep="|")
-print("\nThe best fitness of each generation is: \n", *best_solution, sep="|")
+plt.plot(best_solution, label="Best Solution")
+plt.plot(average_solution, label="Average Solution")
+plt.xlabel("Generation")
+plt.ylabel("Fitness")
+plt.title("Best and Average Fitness over Generations")
+plt.legend()
+plt.grid(True)
+plt.show()
