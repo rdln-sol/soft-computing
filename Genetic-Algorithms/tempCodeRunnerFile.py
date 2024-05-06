@@ -69,7 +69,7 @@ answer = int(
     )
 )
 if answer == 3:
-    q = float(
+    q = int(
         input("\nWhat will the possibality of choosing the best solution be ?  q = ")
     )
     q0 = (2 / algorithm_parameters.get("num_Genes")) - q

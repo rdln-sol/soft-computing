@@ -12,12 +12,10 @@ from numpy import mean
 from GA_Crossover import One_Point_Crossover
 from GA_Mutation import Mutation
 
-
 algorithm_parameters = Initialization()
 population = Create_First_Generation(algorithm_parameters)
 
 best_solution = []
-best_so_far = []
 average_solution = []
 
 objective = input(
@@ -69,11 +67,13 @@ answer = int(
     )
 )
 if answer == 3:
-    q = float(
+    q = int(
         input("\nWhat will the possibality of choosing the best solution be ?  q = ")
     )
     q0 = (2 / algorithm_parameters.get("num_Genes")) - q
     print("q = ", q, " q0 = ", q0)
+
+best_so_far = float("-inf")  # Initialize best_so_far to negative infinity
 
 for i in range(algorithm_parameters.get("num_Generations")):
 
@@ -94,15 +94,16 @@ for i in range(algorithm_parameters.get("num_Generations")):
         population, algorithm_parameters, algorithm_parameters.get("Pm")
     )
     best_solution_index = fitness_list.index(max(fitness_list))
-    best_solution.append(fitness_list[best_solution_index])
-    best_so_far.append(max(best_solution))
+    best_fitness = fitness_list[best_solution_index]
+    best_solution.append(best_fitness)
+    best_so_far = max(best_so_far, best_fitness)  # Update best_so_far
     average_fitness = mean(fitness_list)
     average_solution.append(average_fitness)
 
 print("\nThe final population is: \n", *population, sep="\n")
 plt.plot(best_solution, label="Best Solution")
 plt.plot(average_solution, label="Average Solution")
-plt.plot(best_so_far, label="Best So Far")
+plt.axhline(y=best_so_far, color="r", linestyle="--", label="Best So Far")
 plt.xlabel("Generation")
 plt.ylabel("Fitness")
 plt.title("Best and Average Fitness over Generations")
