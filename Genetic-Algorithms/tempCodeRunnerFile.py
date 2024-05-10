@@ -1,8 +1,8 @@
-import random
 import matplotlib.pyplot as plt
 import obj_fit_functions
-from GA_Initialize import Initialization, Create_First_Generation
-from GA_Evaluate import Evaluate_Generation
+import obj_fit_functions
+from GA_Initialize import bin_Initialization, bin_Create_First_Generation
+from GA_Evaluate import Evaluate_Generation, bin_decode
 from GA_Selection import (
     Roulette_Wheel_Selection,
     Classified_Roulette_Wheel_Selection,
@@ -10,11 +10,11 @@ from GA_Selection import (
 )
 from numpy import mean
 from GA_Crossover import One_Point_Crossover
-from GA_Mutation import Mutation
+from GA_Mutation import bin_Mutation
 
 
-algorithm_parameters = Initialization()
-population = Create_First_Generation(algorithm_parameters)
+algorithm_parameters = bin_Initialization()
+population = bin_Create_First_Generation(algorithm_parameters)
 
 best_solution = []
 best_so_far = []
@@ -69,7 +69,7 @@ answer = int(
     )
 )
 if answer == 3:
-    q = int(
+    q = float(
         input("\nWhat will the possibality of choosing the best solution be ?  q = ")
     )
     q0 = (2 / algorithm_parameters.get("num_Genes")) - q
@@ -77,7 +77,8 @@ if answer == 3:
 
 for i in range(algorithm_parameters.get("num_Generations")):
 
-    fitness_list = Evaluate_Generation(population, Fitness_Function)
+    decoded_population = bin_decode(population, algorithm_parameters)
+    fitness_list = Evaluate_Generation(decoded_population, Fitness_Function)
 
     if answer == 1:
         parents = Roulette_Wheel_Selection(fitness_list)
@@ -90,7 +91,7 @@ for i in range(algorithm_parameters.get("num_Generations")):
     population = One_Point_Crossover(
         population, parents, algorithm_parameters.get("Pc")
     )
-    population = Mutation(
+    population = bin_Mutation(
         population, algorithm_parameters, algorithm_parameters.get("Pm")
     )
     best_solution_index = fitness_list.index(max(fitness_list))

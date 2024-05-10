@@ -18,3 +18,14 @@ def Mutation(population: list, algorithm_parameters: dict, Pm):
             continue
 
     return population
+
+
+def bin_Mutation(chromosomes, algorithm_parameters, mutation_probability):
+    num_genes = algorithm_parameters.get("num_Genes")
+    for chromosome in chromosomes:
+        for i in range(len(chromosome)):
+            if random.random() < mutation_probability:
+                chromosome_list = list(chromosome)
+                chromosome_list[i] = "1" if chromosome_list[i] == "0" else "0"
+                chromosome = "".join(chromosome_list)
+    return chromosomes
