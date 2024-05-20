@@ -1,6 +1,5 @@
 from ICA import ICA
 import time
-import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
@@ -35,4 +34,6 @@ if __name__ == '__main__':
         ii += 1
 
     print(f'Empire {ica.empires[0].name} with cost : {ica.empires[0].cost} is the winner in {ii} iterations')
-    print(f'the dimensions are : {ica.empires[0].getImperialist().dimensions}')
+    print(f'the imperialist dimensions are : {ica.empires[0].getImperialist().dimensions}')
+    for i in ica.empires[0].getColonies():
+        print(i.name , ':', i.dimensions)
