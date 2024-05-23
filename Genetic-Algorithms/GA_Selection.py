@@ -81,5 +81,17 @@ def Roulette_Wheel_Selection(fitness_list: list):
     return parents
 
 
-def Binary_Tournament_Selection(fitness_list: list):
-    pass
+def Binary_Tournament_Selection(fitness_list):
+    parents = []
+    population_size = len(fitness_list)
+
+    for _ in range(population_size):
+
+        i1, i2 = random.sample(range(population_size), 2)
+
+        if fitness_list[i1] > fitness_list[i2]:
+            parents.append(i1)
+        else:
+            parents.append(i2)
+
+    return parents
