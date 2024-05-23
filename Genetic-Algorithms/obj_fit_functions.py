@@ -6,18 +6,16 @@ import numpy as np
 # The two Dimensional Griewank's function
 
 
-from math import cos, sqrt, sin, pi, prod, exp
-import numpy as np
-
-
-# The fitness function for fGriewank
 def fGriewank(x):  # d = 2
     return (
         (x[0] ** 2 + x[1] ** 2) / 4000 - cos(x[0] / sqrt(2)) * cos(x[1] / sqrt(3)) + 1
     )
 
 
-# The fitness function for Griewank
+# -------------------------------------------------------------------------
+# The Griewank's function
+
+
 def griewank(x):  # d = n
     n = len(x)
     s = sum([xi**2 for xi in x]) / 4000
@@ -25,7 +23,10 @@ def griewank(x):  # d = n
     return 1 + s - p
 
 
-# The fitness function for Michalewicz
+# ------------------------------------------------------------------------------
+# The Michalewicz's function
+
+
 def michalewicz(x):  # d = n
     m = 10
     n = len(x)
@@ -35,7 +36,10 @@ def michalewicz(x):  # d = n
     return result
 
 
-# The fitness function for Rastrigin
+# -------------------------------------------------------------------
+# The Rastrigin's Function
+
+
 def rastrigin(x):  # d = n
     A = 10
     n = len(x)
@@ -43,17 +47,45 @@ def rastrigin(x):  # d = n
     return A * n + sum_term
 
 
-# The fitness function for Booth
+# -------------------------------------------------------------------
+# The 2 variable Rosenbrock's function
+
+
+def rosenbrock(x):
+    a = 1
+    b = 100
+    return (a - x[0]) ** 2 + b * (x[1] - x[0] ** 2) ** 2
+
+
+# --------------------------------------------------------
+def fitness_function_1(chromosome):  # d = 3
+    x = chromosome[0]
+    y = chromosome[1]
+    z = chromosome[2]
+    fitness = -(x**2 + y**2 + z**2)
+    return fitness
+
+
+# -------------------------------------------
+# Booth function
+
+
 def booth(x):  # d = 2
     return (x[0] + 2 * x[1] - 7) ** 2 + (2 * x[0] + x[1] - 5) ** 2
 
 
-# The fitness function for Bukin_n6
+# ----------------------------------------------------------------
+# Bukin function N.6
+
+
 def bukin_n6(x):  # d = 2
     return 100 * np.sqrt(np.abs(x[1] - 0.01 * x[0] ** 2)) + 0.01 * np.abs(x[0] + 10)
 
 
-# The fitness function for Cross-in-Tray
+# -------------------------------------------------------------------------------
+# Cross-in-Tray function
+
+
 def cross_in_tray(x):  # d = 2
     return -0.0001 * (
         np.abs(
@@ -65,7 +97,10 @@ def cross_in_tray(x):  # d = 2
     )
 
 
-# The fitness function for Holder_Table
+# -----------------------------------------------------------------------------------------------------------------------------
+# Holder_Table function
+
+
 def holder_table(x):  # d = 2
     num = -np.abs(
         np.sin(x[0])
@@ -79,12 +114,16 @@ def holder_table(x):  # d = 2
     return num / den
 
 
-# The fitness function for McCormick
+# ----------------------------------------------------------------------------------------------------
+# McCormick function
+
+
 def mccormick(x):  # d = 2
     return np.sin(x[0] + x[1]) + (x[0] - x[1]) ** 2 - 1.5 * x[0] + 2.5 * x[1] + 1
 
 
-# The fitness function for Poloni
+# ------------------------------
+# Poloni's two objective function
 def poloni(x):  # !
 
     A1 = 0.5 * sin(1) - 2 * cos(1) + sin(2) - 1.5 * cos(2)
@@ -97,7 +136,8 @@ def poloni(x):  # !
     return [f1, f2]
 
 
-# The fitness function for Viennet
+# -----------------------------------------------------------
+# Viennet function
 def viennet(x):  # !
 
     f1 = 0.5 * (x[0] ** 2 + x[1] ** 2) + np.sin(x[0] ** 2 + x[1] ** 2)

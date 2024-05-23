@@ -31,7 +31,9 @@ def Linear_scaling(fitness_list: list):
     return scaled_fitness_list
 
 
-def Classified_Roulette_Wheel_Selection(fitness_list: list, q, q0):
+def Classified_Roulette_Wheel_Selection(fitness_list: list):
+    q = float(input("q :"))
+    q0 = float(input("q0 :"))
     Pi = []
     for i in range(len(fitness_list)):
         if i == fitness_list.index(max(fitness_list)):
@@ -42,16 +44,18 @@ def Classified_Roulette_Wheel_Selection(fitness_list: list, q, q0):
             Ri = round(random.uniform(0, 1), 5)
             Pi.append((q - (q - q0)) * ((Ri - 1) / len(fitness_list) - 1))
 
-    Ci = []
+    Ci = [0] * len(fitness_list)
     for i in range(len(fitness_list)):
-        if i != 0:
-            Ci.append(Pi[i] + Ci[i - 1])
+        if i == 0:
+            Ci[i] = Pi[i]
         else:
-            Ci.append(Pi[i])
+            Ci[i] = Pi[i] + Ci[i - 1]
 
     parents = []
-    for i in range(len(fitness_list)):
-        parents.append(lower_bound(Ci, round(random.uniform(0, 1), 5)))
+    for _ in range(len(fitness_list)):
+        rand_val = random.uniform(0, 1)
+        parent_index = lower_bound(Ci, rand_val)
+        parents.append(parent_index)
 
     return parents
 
@@ -59,16 +63,23 @@ def Classified_Roulette_Wheel_Selection(fitness_list: list, q, q0):
 def Roulette_Wheel_Selection(fitness_list: list):
 
     total_fitness = sum(fitness_list)
-    Pi = 0
-    Ci = []
+    Pi = [f / total_fitness for f in fitness_list]
+
+    Ci = [0] * len(fitness_list)
     for i in range(len(fitness_list)):
-        Pi = fitness_list[i] / total_fitness
-        if i != 0:
-            Ci.append(Pi + Ci[i - 1])
+        if i == 0:
+            Ci[i] = Pi[i]
         else:
-            Ci.append(Pi)
+            Ci[i] = Pi[i] + Ci[i - 1]
+
     parents = []
-    for i in range(len(fitness_list)):
-        parents.append(lower_bound(Ci, round(random.uniform(0, 1), 5)))
+    for _ in range(len(fitness_list)):
+        rand_val = random.uniform(0, 1)
+        parent_index = lower_bound(Ci, rand_val)
+        parents.append(parent_index)
 
     return parents
+
+
+def Binary_Tournament_Selection(fitness_list: list):
+    pass
