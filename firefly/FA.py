@@ -54,8 +54,8 @@ class FA:
         for i in range(len(self.fireflies)):
             plt.scatter(x[i], y[i], marker='o', color=self.colors[i])
         plt.title(f'Firefly positions at iteration {iteration}')
-        plt.xlim(-20, 20)
-        plt.ylim(-20, 20)
+        plt.xlim(-50, 50)
+        plt.ylim(-50, 50)
         plt.xlabel('Dimension 1')
         plt.ylabel('Dimension 2')
         plt.draw()
