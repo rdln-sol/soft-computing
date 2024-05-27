@@ -3,6 +3,7 @@ from empire import Empire
 from tools import rouletteWheel
 from random import random, shuffle
 import numpy as np
+import matplotlib.pyplot as plt
 
 class ICA:
     def __init__(self) -> None:
@@ -116,3 +117,18 @@ class ICA:
             chosenEmpire.addColony(weakestEmpire.getImperialist(), zetta)
             print(f'empire {weakestEmpire.name} was deleted')
             del self.empires[self.empires.index(weakestEmpire)]
+
+    def plot(self):
+        # Plotting countries as dots
+        for country in self.countries:
+            plt.plot(country.dimensions[0], country.dimensions[1], 'bo')  # Blue dots for countries
+
+        # Plotting imperialists as stars
+        for empire in self.empires:
+            imperialist = empire.getImperialist()
+            plt.plot(imperialist.dimensions[0], imperialist.dimensions[1], 'r*', markersize=10)  # Red stars for imperialists
+
+        plt.xlabel('X Dimension')
+        plt.ylabel('Y Dimension')
+        plt.title('Imperialist Competition Algorithm')
+        plt.show()

@@ -13,7 +13,8 @@ if __name__ == "__main__":
     plt.ion()
 
     for iteration in range(iterations):
-        fa.move(2.0, 0.2, 0.95)
+        fa.move(2.0, 0.2, 0.9, 0.5)
+
         fa.plotFireflies(iteration)
     
     plt.ioff()

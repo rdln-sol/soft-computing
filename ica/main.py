@@ -1,5 +1,4 @@
 from ICA import ICA
-import time
 
 if __name__ == '__main__':
 

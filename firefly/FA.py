@@ -23,7 +23,7 @@ class FA:
             self.fireflies.append(firefly)
         self.colors = [plt.cm.jet(float(i) / count) for i in range(count)]
 
-    def move(self, betta0: float, alpha0: float, alphaRC: float) -> None:
+    def move(self, betta0: float, alpha0: float, alphaRC: float, gamma: float) -> None:
         '''
             Moves the fireflies with lower light intensity 
             towards the fireflies with higher light intensity.
@@ -33,7 +33,7 @@ class FA:
                 if self.fireflies[i].getBrightness() > self.fireflies[j].getBrightness():
 
                     rij = np.linalg.norm(np.array(self.fireflies[i].getDimensions()) - np.array(self.fireflies[j].getDimensions()))
-                    beta = betta0 * math.exp(-rij ** 2)
+                    beta = betta0 * math.exp(-gamma * (rij ** 2))
                     
                     new_dimensions = []
                     for k in range(len(self.fireflies[i].getDimensions())):
@@ -54,8 +54,8 @@ class FA:
         for i in range(len(self.fireflies)):
             plt.scatter(x[i], y[i], marker='o', color=self.colors[i])
         plt.title(f'Firefly positions at iteration {iteration}')
-        plt.xlim(-10, 10)
-        plt.ylim(-10, 10)
+        plt.xlim(-20, 20)
+        plt.ylim(-20, 20)
         plt.xlabel('Dimension 1')
         plt.ylabel('Dimension 2')
         plt.draw()
